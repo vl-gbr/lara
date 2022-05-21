@@ -22,4 +22,9 @@ class NewsController extends Controller
 //        }
         return view('news.page', ['page'=> News::getId($id)]);  //(3)
     }
+    public function list($id=null) {
+        $news = News::getNews($id);    //(2)
+//        dd($news);
+        return view('news.index')->with('news', $news);
+    }
 }

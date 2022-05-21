@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Admin\IndexController as AdminController;
 use App\Http\Controllers\Admin\NewsController as NewsAdminController;
 use App\Http\Controllers\Admin\CategoryController as CategoryAdminController;
@@ -45,6 +46,13 @@ Route::group(['prefix'=>'news', 'as'=>'news.'], function () {
     Route::get('/{id}', [NewsController::class, 'show'])
     ->where('id', '[0-9]+')
     ->name('newspage');
+    Route::get('/category', [CategoryController::class, 'index'])->name('category');
+    Route::get('/category/{id}', [CategoryController::class, 'show'])
+    ->where('id', '[0-9]+')
+    ->name('catpage');
+    Route::get('/category/{id}/list', [NewsController::class, 'list'])
+    ->where('id', '[0-9]+')
+    ->name('catlist');
 });
 
 //Route::get('/newspage', function () {

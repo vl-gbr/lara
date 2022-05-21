@@ -17,21 +17,26 @@ class Category {
         [
             'id' => 2,
             'title' => 'Категория 2',
-            'text' => 'Категория 2 -- Новости спорта',
+            'text' => 'Категория 2 -- Городские новости',
+        ],
+        [
+            'id' => 3,
+            'title' => 'Категория 3',
+            'text' => 'Категория 3 -- Новости спорта',
         ]
     ];
     
-    public static function getNews() {
+    public static function getAll() 
+    {
         foreach (static::$cats as $idx=>$one) {
             static::$cats[$idx]['slug'] = \Illuminate\Support\Str::slug($one['title']);
-//            dd($one);
         }
-//        dd(static::$cats);
         return static::$cats;
     }
     
-    public static function getId($id) {
-        foreach (static::getNews() as $item) {
+    public static function getId($id) 
+    {
+        foreach (static::getAll() as $item) {
             if ($item['id'] == $id) return $item;
         }
         return [];
