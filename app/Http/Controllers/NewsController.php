@@ -8,23 +8,19 @@ use App\Models\News;
 
 class NewsController extends Controller
 {
-    public function index() {
-//        return "Список новостей"; //(1)
-        $news = News::getNews();    //(2)
+    public function index(News $news) {
+//        $news = new News();    
 //        dd($news);
-        return view('news.index')->with('news', $news);
+        return view('news.index')->with('news', $news->getAll());
     }
     
-    public function show($id) {
-//        return "Новость -- {$id}"; //(1)
-//        foreach (News::getNews() as $page) {  //(2)
-//            if ($page['id'] == $id) break;
-//        }
-        return view('news.page', ['page'=> News::getId($id)]);  //(3)
+    public function show(News $news, $id) {
+//        $news = new News(); 
+        return view('news.page', ['page'=> $news->getId($id)]);  
     }
-    public function list($id=null) {
-        $news = News::getNews($id);    //(2)
+    public function list(News $news, $id=null) {
+//        $news = new News(); 
 //        dd($news);
-        return view('news.index')->with('news', $news);
+        return view('news.index')->with('news', $news->getAll($id));
     }
 }
