@@ -12,7 +12,7 @@
     <h3>News page</h3>
     <h4>{{ ($page ? $page['id'] . '. ' : "") . ($page['title'] ?? "") }}</h4>
     <p>
-        @if (($page) && $page['is_private'])
+        @if (isset($page['is_private']) && $page['is_private'])
             Для чтения этой новости требуется регистрация
         @else
             {{ $page['text'] ?? "404 -- Page not found.." }}
