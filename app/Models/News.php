@@ -15,6 +15,7 @@ class News
             'title' => 'Новость 1',
             'text' => 'Ситуация в мире',
             'category' => 1,
+            'is_private' => true,
         ],
         2 => [
             'id' => 2,
@@ -39,6 +40,7 @@ class News
             'title' => 'Новость 5',
             'text' => 'Об уборке снега на улицах СПб',
             'category' => 2,
+            'is_private' => true,
         ],
         6 => [
             'id' => 6,

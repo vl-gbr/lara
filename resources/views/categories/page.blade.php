@@ -1,5 +1,5 @@
 <?php
-include "../resources/views/menu.php";
+include "../resources/views/menu.blade.php";
 ?>
 <?php if (isset($page) && !empty($page)):?>
     <h3>Категория</h3>

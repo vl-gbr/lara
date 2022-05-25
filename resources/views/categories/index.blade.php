@@ -1,5 +1,5 @@
 <?php
-    include "../resources/views/menu.php";
+    include "../resources/views/menu.blade.php";
 ?>
 <h3>Категории новостей</h3><br>
 <?php foreach ($categories as $one): ?>
