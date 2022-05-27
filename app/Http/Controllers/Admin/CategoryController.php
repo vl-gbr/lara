@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $cats = Category::getNews();    //(2)
+        $cats = Category::getAll();    //(2)
 //        dd($news);
         return view('admin.categories.index')->with('cats', $cats);
     }

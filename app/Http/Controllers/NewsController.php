@@ -23,4 +23,9 @@ class NewsController extends Controller
 //        dd($news);
         return view('news.index')->with('news', $news->getAll($id));
     }
+    public function newsBy(News $news, ...$opt) {
+//        $news = new News(); 
+        dump($news, $opt);
+        return view('news.index')->with('news', $news->getBy($opt));
+    }
 }

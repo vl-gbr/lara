@@ -14,7 +14,7 @@
         <h4>
             <a href="{{ route('newspage', $page['id']) }}">{{$page['title']}}</a>
         </h4>
-    <span>Категория <i>{{$page['category']}}</i></span>
+        <span>Категория <i>{{$page['category']}}</i></span>
         <p>
             {{$page['text']}}
         </p>

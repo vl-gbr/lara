@@ -74,8 +74,10 @@ class News
         ]
     ];
     
-    public function getAll($id=null) {
+    public function getAll($id=null) 
+    {
         $newsList = [];
+        
         if (!empty($id)) {
             foreach ($this->news as $idx=>$one) {
                 if ($one['category'] <> $id) continue;
@@ -86,17 +88,63 @@ class News
         }
         foreach ($newsList as $idx=>$one) {
             $newsList[$idx]['slug'] = \Illuminate\Support\Str::slug($one['title']);
-//            dd($one);
         }
-//        dd(static::$news);
-//        dd($newsList);
+            
         return $newsList;
     }
     
     public function getId($id) {
-//        foreach (static::getAll() as $item) {
-//            if ($item['id'] == $id) return $item;;
-//        }
         return $this->getAll()[$id] ?? "";
+    }
+    
+    public function getBy($id=null) 
+    {
+        dump($id);
+        $newsList = [];
+        
+        switch (true) {
+        case empty($id):
+            dump('is empty');
+            $newsList = $this->news;
+            break;
+        case is_int($id):
+            dump('is integer');
+            foreach ($this->news as $idx=>$one) {
+                $one['slug'] = \Illuminate\Support\Str::slug($one['title']);
+                if ($one['category'] <> $id) continue;
+                $newsList[] = $one;
+            }
+            break;
+        case is_string($id):
+            dump('is string');
+            foreach ($this->news as $idx=>$one) {
+                $one['slug'] = \Illuminate\Support\Str::slug($one['title']);
+                if ($one['slug'] <> $id) continue;
+                $newsList[] = $one;
+            }
+            break;
+        case is_array($id):
+            $arg = [...$id];
+//            dd($arg);
+            if (count($arg) == 2) {
+                list($fdx, $val) = $arg;
+            } elseif (count($arg) == 1) {
+                list($val) = $arg;
+                $fdx = 'slug';
+            }
+            dump('is array', $fdx, $val);
+            foreach ($this->news as $idx=>$one) {
+                $one['slug'] = \Illuminate\Support\Str::slug($one['title']);
+                dump($one, $one[$fdx]);
+                if ($one[$fdx] <> $val) continue;
+                $newsList[] = $one;
+            }
+            break;
+        default:
+            $newsList = $this->news;
+            break;
+        }
+        dump($newsList);
+        return $newsList;
     }
 }

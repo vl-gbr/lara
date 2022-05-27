@@ -30,7 +30,7 @@ Route::get('/name/{name}', function ($name) {
 })->name('name');
 
 Route::get('/name', function () {
-    include "../resources/views/menu.php";
+    include "../resources/views/menu.blade.php";
     return "Enter Name..";
 })->name('noname');
 
@@ -47,12 +47,22 @@ Route::group(['prefix'=>'news', 'as'=>'news.'], function () {
     ->where('id', '[0-9]+')
     ->name('newspage');
     Route::get('/category', [CategoryController::class, 'index'])->name('category');
+    Route::get('/cats', [CategoryController::class, 'cats'])->name('cats');
     Route::get('/category/{id}', [CategoryController::class, 'show'])
     ->where('id', '[0-9]+')
     ->name('catpage');
     Route::get('/category/{id}/list', [NewsController::class, 'list'])
     ->where('id', '[0-9]+')
     ->name('catlist');
+    Route::get('/category/{opt}/{id}', [CategoryController::class, 'catby'])
+//    ->where('opt', '\w+[0-9_]+')
+    ->name('catby');
+    Route::get('/{opt}', [CategoryController::class, 'catby'])
+//    ->where('opt', '\w+[0-9_]+')
+    ->name('newsbyslug');
+    Route::get('/newsby/{opt}/{id}', [NewsController::class, 'newsby'])
+//    ->where('opt', '\w+[0-9_]+')
+    ->name('newsby');
 });
 
 //Route::get('/newspage', function () {
