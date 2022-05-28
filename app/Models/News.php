@@ -7,7 +7,7 @@ namespace App\Models;
  *
  * @author vlenx
  */
-class News 
+class News
 {
     private  $news = [
         1 => [
@@ -73,11 +73,11 @@ class News
             'category' => 1,
         ]
     ];
-    
-    public function getAll($id=null) 
+
+    public function getAll($id=null)
     {
         $newsList = [];
-        
+
         if (!empty($id)) {
             foreach ($this->news as $idx=>$one) {
                 if ($one['category'] <> $id) continue;
@@ -89,26 +89,25 @@ class News
         foreach ($newsList as $idx=>$one) {
             $newsList[$idx]['slug'] = \Illuminate\Support\Str::slug($one['title']);
         }
-            
+
         return $newsList;
     }
-    
+
     public function getId($id) {
         return $this->getAll()[$id] ?? "";
     }
-    
-    public function getBy($id=null) 
+
+    public function getBy($id=null)
     {
-        dump($id);
         $newsList = [];
-        
+
         switch (true) {
         case empty($id):
-            dump('is empty');
+            //dump('is empty');
             $newsList = $this->news;
             break;
         case is_int($id):
-            dump('is integer');
+            //dump('is integer');
             foreach ($this->news as $idx=>$one) {
                 $one['slug'] = \Illuminate\Support\Str::slug($one['title']);
                 if ($one['category'] <> $id) continue;
@@ -116,7 +115,7 @@ class News
             }
             break;
         case is_string($id):
-            dump('is string');
+            //dump('is string');
             foreach ($this->news as $idx=>$one) {
                 $one['slug'] = \Illuminate\Support\Str::slug($one['title']);
                 if ($one['slug'] <> $id) continue;
@@ -125,17 +124,17 @@ class News
             break;
         case is_array($id):
             $arg = [...$id];
-//            dd($arg);
+            //dd($arg);
             if (count($arg) == 2) {
                 list($fdx, $val) = $arg;
             } elseif (count($arg) == 1) {
                 list($val) = $arg;
                 $fdx = 'slug';
             }
-            dump('is array', $fdx, $val);
+            //dump('is array', $fdx, $val);
             foreach ($this->news as $idx=>$one) {
                 $one['slug'] = \Illuminate\Support\Str::slug($one['title']);
-                dump($one, $one[$fdx]);
+                //dump($one, $one[$fdx]);
                 if ($one[$fdx] <> $val) continue;
                 $newsList[] = $one;
             }
@@ -144,7 +143,7 @@ class News
             $newsList = $this->news;
             break;
         }
-        dump($newsList);
+        //dump($newsList);
         return $newsList;
     }
 }

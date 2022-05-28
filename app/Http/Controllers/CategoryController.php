@@ -14,12 +14,13 @@ class CategoryController extends Controller
 //        dd($cats);
         return view('categories.index')->with('categories', $cats);
     }
-    
+
     public function show($id) {
         return view('categories.page', ['page'=> Category::getId($id)]);  //(3)
     }
     public function catBy(News $news, Category $cat,...$opt) {
-        dump('catBy', $news, $cat::$cats, $opt);
+        //dump('catBy', $news, $cat::$cats, $opt);
+
         if (!is_array($opt)) {
             $opt = [...$opt];
         }
@@ -29,13 +30,13 @@ class CategoryController extends Controller
             list($val) = $opt;
             $fdx = 'slug';
         }
-//        dd('is array', $fdx, $val, $cat->getCategoryBySlug($val));
+        //dd('is array', $fdx, $val, $cat->getCategoryBySlug($val));
         $cdx = $cat->getCategoryBySlug($val);
-        
-        dump('$cdx', $cdx);
+        //dump('$cdx', $cdx);
+
         return view('news.index')->with('news', $news->getBy(['category', $cdx['id']]));
     }
-    
+
     public function cats() {
         $cats = Category::getAll();    //(2)
 //        dd($cats);

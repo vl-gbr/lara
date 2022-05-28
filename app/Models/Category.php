@@ -7,7 +7,7 @@ namespace App\Models;
  *
  * @author vlenx
  */
-class Category 
+class Category
 {
     public static $cats = [
         [
@@ -26,67 +26,46 @@ class Category
             'text' => 'Категория 3 -- Новости спорта',
         ]
     ];
-    
-    public static function getAll() 
+
+    public static function getAll()
     {
         foreach (static::$cats as $idx=>$one) {
             static::$cats[$idx]['slug'] = \Illuminate\Support\Str::slug($one['title']);
         }
         return static::$cats;
     }
-    
-    public static function getId($id) 
+
+    public static function getId($id)
     {
         foreach (static::getAll() as $item) {
             if ($item['id'] == $id) return $item;
         }
         return [];
     }
-    public static function getBy($id=null) 
+    public static function getBy($id=null)
     {
-        dump($id);
+        //dump($id);
         $newsList = [];
-        
+
         switch (true) {
-//        case empty($id):
-//            dump('is empty');
-//            $newsList = $this->news;
-//            break;
-//        case is_int($id):
-//            dump('is integer');
-//            foreach ($this->news as $idx=>$one) {
-//                $one['slug'] = \Illuminate\Support\Str::slug($one['title']);
-//                if ($one['category'] <> $id) continue;
-//                $newsList[] = $one;
-//            }
-//            break;
-//        case is_string($id):
-//            dump('is string');
-//            foreach ($this->news as $idx=>$one) {
-//                $one['slug'] = \Illuminate\Support\Str::slug($one['title']);
-//                if ($one['slug'] <> $id) continue;
-//                $newsList[] = $one;
-//            }
-//            break;
-            
+
         case !is_array($id):
-            dump('is not array', $id);            
+            //dump('is not array', $id);
             $id = [...$id];
-            dump('is array', $id);            
-            
+            //dump('is array', $id);
+
         case is_array($id):
             $arg = [...$id];
-//            dd($arg);
             if (count($arg) == 2) {
                 list($fdx, $val) = $arg;
             } elseif (count($arg) == 1) {
                 list($val) = $arg;
                 $fdx = 'slug';
             }
-            dump('is array', $fdx, $val);
+            //dump('is array',$arg, $fdx, $val);
             foreach (static::$cats as $idx=>$one) {
                 $one['slug'] = \Illuminate\Support\Str::slug($one['title']);
-//                dump($one, $one[$fdx]);
+                //dump($one, $one[$fdx]);
                 if ($one[$fdx] <> $val) continue;
                 $newsList[] = $one;
             }
@@ -95,16 +74,16 @@ class Category
             $newsList = $this->news;
             break;
         }
-        dump($newsList);
+        //dump($newsList);
         return $newsList;
     }
-    
+
     public function getCategoryBySlug($slug) {
         $i = 0;
-        dump('getCategoryBySlug', $slug);
+        //dump('getCategoryBySlug', $slug);
         foreach (static::$cats as $idx=>$one) {
             $one['slug'] = \Illuminate\Support\Str::slug($one['title']);
-            dump(++$i, $one);
+            //dump(++$i, $one);
             if ($one['slug'] == $slug) return $one;
         }
         return '';
